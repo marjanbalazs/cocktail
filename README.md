@@ -1,6 +1,10 @@
 # Cocktail App
 
 
+## ToDo
+Configure eslint and prettier
+Make it not awfully ugly
+
 ## Install:
 
 `npm i`
