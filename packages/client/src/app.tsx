@@ -95,7 +95,7 @@ const CocktailView: React.FC<CocktailViewProps> = ({ cocktail }) => {
 }
 
 const getCocktailSearch = async (name: string): Promise<Cocktail[]> => {
-    const resp = await axios.get<{ drinks: Cocktail[] }>("http://localhost:3000/api/cocktail", {
+    const resp = await axios.get<{ drinks: Cocktail[] }>(`${location.origin}/api/cocktail`, {
         params: {
             name,
         }
@@ -104,14 +104,13 @@ const getCocktailSearch = async (name: string): Promise<Cocktail[]> => {
 };
 
 const getRandomCocktail = async (): Promise<Cocktail> => {
-    const resp = await axios.get<{ drinks: Cocktail[] }>("http://localhost:3000/api/cocktail");
+    const resp = await axios.get<{ drinks: Cocktail[] }>(`${location.origin}/api/cocktail`);
     return resp.data.drinks[0];
 };
 
 type DisplayMode = 'RandomCocktail' | 'SearchResults';
 
 const App = () => {
-
     const [displayMode, setDisplayMode] = useState<DisplayMode>();
     const [currentCocktail, setCurrentCocktail] = useState<Cocktail>();
     const [searchName, setSearchName] = useState<string>();
@@ -153,7 +152,6 @@ const App = () => {
                 displayMode === 'RandomCocktail' ? (
                     <div>
                         {currentCocktail && <CocktailView cocktail={currentCocktail}/>}
-                        <button onClick={handleGetCocktail}>Get another cocktail</button>
                     </div>
                  ) :
                  <div>
@@ -166,6 +164,7 @@ const App = () => {
                      }
                  </div>
             }
+            <button onClick={handleGetCocktail}>Get Random cocktail</button>
         </div>
 
     );
