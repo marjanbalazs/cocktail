@@ -1,16 +1,25 @@
 # Cocktail App
 
 
-Install:
+## Install:
 
 `npm install`
 
 
-Run dev mode:
+## Dev mode:
 
-`npm install`
+Place .env file in the `server` folder:
+
+```
+COCKTAIL_URL=https://www.thecocktaildb.com/api/json/v1
+COCKTAIL_API_KEY=1
+PORT=3000
+```
+and then:
+
+`npm run dev`
 
 
-Run build:
+## Build:
 
-`npm install`
+`npm run build`
