@@ -9,9 +9,8 @@ const apiRouter = express.Router();
 
 apiRouter.get('/cocktail', (req, res) => {
     const queryParams = req.query;
-    // I would separate the endpoints though
     if (queryParams.name) {
-        logger.debug("Requesting coctail with name:", queryParams.name)
+        logger.debug("Requesting cocktail with name:", queryParams.name)
         axios.get(`${COCKTAIL_URL}/${COCKTAIL_API_KEY}/search.php`, {
             params: {
                 s: queryParams.name,
