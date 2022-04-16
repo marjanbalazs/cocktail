@@ -3,7 +3,7 @@
 
 ## Install:
 
-`npm install`
+`npx lerna bootstrap`
 
 
 ## Dev mode:
