@@ -1,0 +1,31 @@
+{
+  "name": "cocktail",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "lerna run build",
+    "dev": "lerna run dev --stream"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marjanbalazs/cocktail.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marjanbalazs/cocktail/issues"
+  },
+  "homepage": "https://github.com/marjanbalazs/cocktail#readme",
+  "dependencies": {
+    "esbuild": "^0.14.36",
+    "eslint": "^8.13.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "lerna": "^4.0.0",
+    "prettier": "^2.6.2",
+    "typescript": "^4.6.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
