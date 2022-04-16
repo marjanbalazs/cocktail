@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "lerna run build",
-    "dev": "lerna run dev --stream"
+    "dev": "lerna run dev --stream",
+    "check-types": "lerna run check-types --stream"
   },
   "repository": {
     "type": "git",

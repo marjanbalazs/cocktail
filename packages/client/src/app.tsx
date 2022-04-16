@@ -1,90 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import type { Cocktail } from './types';
 
-interface Cocktail {
-    idDrink:                     string;
-    strDrink:                    string;
-    strDrinkAlternate:           string;
-    strTags:                     string;
-    strVideo:                    string;
-    strCategory:                 string;
-    strIBA:                      string;
-    strAlcoholic:                string;
-    strGlass:                    string;
-    strInstructions:             string;
-    strInstructionsES:           string;
-    strInstructionsDE:           string;
-    strInstructionsFR:           string;
-    strInstructionsIT:           string;
-    "strInstructionsZH-HANS":    string;
-    "strInstructionsZH-HANT":    string;
-    strDrinkThumb:               string;
-    strIngredient1:              string;
-    strIngredient2:              string;
-    strIngredient3:              string;
-    strIngredient4:              string;
-    strIngredient5:              string;
-    strIngredient6:              string;
-    strIngredient7:              string;
-    strIngredient8:              string;
-    strIngredient9:              string;
-    strIngredient10:             string;
-    strIngredient11:             string;
-    strIngredient12:             string;
-    strIngredient13:             string;
-    strIngredient14:             string;
-    strIngredient15:             string;
-    strMeasure1:                 string;
-    strMeasure2:                 string;
-    strMeasure3:                 string;
-    strMeasure4:                 string;
-    strMeasure5:                 string;
-    strMeasure6:                 string;
-    strMeasure7:                 string;
-    strMeasure8:                 string;
-    strMeasure9:                 string;
-    strMeasure10:                string;
-    strMeasure11:                string;
-    strMeasure12:                string;
-    strMeasure13:                string;
-    strMeasure14:                string;
-    strMeasure15:                string;
-    strImageSource:              string;
-    strImageAttribution:         string;
-    strCreativeCommonsConfirmed: string;
-    dateModified:                string;
-}
 
 interface CocktailViewProps {
     cocktail: Cocktail;
 }
 
-interface CocktailIngredientAndMeasure {
-    name: string;
-    measure: string;
-}
-
-const collectIngredientsAndMesures = (cocktail: Cocktail): CocktailIngredientAndMeasure[] => {
-    const ingredientKeys = Object.entries(cocktail).filter(([key, val]) => key.startsWith('strIngredient') && val);
-    return ingredientKeys.map(([key, val]) => {
-        const measureIndex = key.split('strIngredient')[1];
-        return {
-            name: val,
-            measure: cocktail[`strMeasure${measureIndex}` as keyof Cocktail] ?? undefined,
-        }
-    })
-}
 
 const CocktailView: React.FC<CocktailViewProps> = ({ cocktail }) => {
-    const collectedIngredients = collectIngredientsAndMesures(cocktail);
     return (
         <div>
             <div>
                 {cocktail.strDrink}
             </div>
             <ul>
-                {collectedIngredients.map((obj) => <li>{`${obj.name}`}{obj?.measure ? `: ${obj.measure}`: ''}</li>)}   
+                {cocktail.ingredientsAndMeasures.map((obj) => <li>{`${obj.name}`}{obj?.measure ? `: ${obj.measure}`: ''}</li>)}   
             </ul>
             <div>
                 {cocktail.strInstructions}
@@ -95,17 +27,17 @@ const CocktailView: React.FC<CocktailViewProps> = ({ cocktail }) => {
 }
 
 const getCocktailSearch = async (name: string): Promise<Cocktail[]> => {
-    const resp = await axios.get<{ drinks: Cocktail[] }>(`${location.origin}/api/cocktail`, {
+    const resp = await axios.get<Cocktail[]>(`${location.origin}/api/cocktail`, {
         params: {
             name,
         }
     });
-    return resp.data.drinks;
+    return resp.data;
 };
 
 const getRandomCocktail = async (): Promise<Cocktail> => {
-    const resp = await axios.get<{ drinks: Cocktail[] }>(`${location.origin}/api/cocktail`);
-    return resp.data.drinks[0];
+    const resp = await axios.get<Cocktail[]>(`${location.origin}/api/cocktail`);
+    return resp.data[0];
 };
 
 type DisplayMode = 'RandomCocktail' | 'SearchResults';

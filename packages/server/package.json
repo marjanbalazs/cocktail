@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon --watch './src/**' -e ts,json --exec \"npm run build && npm run start\"",
     "build": "node ./scripts/build_server.js",
-    "start": "node ../../dist/app.js"
+    "start": "node ../../dist/app.js",
+    "check-types": "tsc --noEmit"
   },
   "author": "",
   "license": "ISC",
