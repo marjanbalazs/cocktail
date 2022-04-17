@@ -41,7 +41,8 @@ const getRandomCocktail = async (): Promise<Cocktail> => {
   return resp.data[0];
 };
 
-type DisplayMode = 'RandomCocktail' | 'SearchResults';
+// These could be routes...
+type DisplayMode = 'SpecificCocktail' | 'SearchResults';
 
 function App() {
   const [displayMode, setDisplayMode] = useState<DisplayMode>();
@@ -50,7 +51,7 @@ function App() {
   const [cocktailSearchResults, setCocktailSearchResult] = useState<Cocktail[]>();
 
   useEffect(() => {
-    setDisplayMode('RandomCocktail');
+    setDisplayMode('SpecificCocktail');
     getRandomCocktail().then((cocktail) => setCurrentCocktail(cocktail));
   }, []);
 
@@ -70,8 +71,17 @@ function App() {
     getRandomCocktail()
       .then((cocktail) => {
         setCurrentCocktail(cocktail);
-        setDisplayMode('RandomCocktail');
+        setDisplayMode('SpecificCocktail');
       });
+  };
+
+  const handleCocktailListClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    cocktail: Cocktail,
+  ) => {
+    e.preventDefault();
+    setCurrentCocktail(cocktail);
+    setDisplayMode('SpecificCocktail');
   };
 
   return (
@@ -81,47 +91,38 @@ function App() {
         <input type="search" name="name" onChange={(e) => setSearchName(e.target.value)} />
         <input type="submit" value="Submit" />
       </form>
-      {
-                displayMode === 'RandomCocktail' ? (
-                  <div>
-                    {currentCocktail && <CocktailView cocktail={currentCocktail} />}
-                  </div>
-                )
-                  : (
-                    <div>
-                      {
-                        cocktailSearchResults?.length ? (
-                          <ul>
-                            {cocktailSearchResults.map((cocktail) => (
-                              <li>
-                                <button
-                                  style={{
-                                    background: 'none',
-                                    color: 'blue',
-                                    border: 'none',
-                                    padding: 0,
-                                    font: 'inherit',
-                                    cursor: 'pointer',
-                                    outline: 'inherit',
-                                    textDecoration: 'underline',
-                                  }}
-                                  type="button"
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    setCurrentCocktail(cocktail);
-                                    setDisplayMode('RandomCocktail');
-                                  }}
-                                >
-                                  {cocktail.strDrink}
-                                </button>
-                              </li>
-                            ))}
-                          </ul>
-                        ) : <p>No results</p>
-                     }
-                    </div>
-                  )
-            }
+      {displayMode === 'SpecificCocktail' ? (
+        <div>
+          {currentCocktail && <CocktailView cocktail={currentCocktail} />}
+        </div>
+      ) : (
+        <div>
+          {cocktailSearchResults?.length ? (
+            <ul>
+              {cocktailSearchResults.map((cocktail) => (
+                <li>
+                  <button
+                    style={{
+                      background: 'none',
+                      color: 'blue',
+                      border: 'none',
+                      padding: 0,
+                      font: 'inherit',
+                      cursor: 'pointer',
+                      outline: 'inherit',
+                      textDecoration: 'underline',
+                    }}
+                    type="button"
+                    onClick={(e) => handleCocktailListClick(e, cocktail)}
+                  >
+                    {cocktail.strDrink}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          ) : <p>No results</p>}
+        </div>
+      )}
       <button type="button" onClick={handleGetCocktail}>Get Random cocktail</button>
     </div>
 
