@@ -2,7 +2,6 @@
 
 
 ## ToDo
-- Configure eslint and prettier
 - Make it not awfully ugly
 
 ## Install:
