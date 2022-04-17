@@ -94,14 +94,26 @@ function App() {
                           <ul>
                             {cocktailSearchResults.map((cocktail) => (
                               <li>
-                                <a onClick={(e) => {
-                                  e.preventDefault();
-                                  setCurrentCocktail(cocktail);
-                                  setDisplayMode('RandomCocktail');
-                                }}
+                                <button
+                                  style={{
+                                    background: 'none',
+                                    color: 'blue',
+                                    border: 'none',
+                                    padding: 0,
+                                    font: 'inherit',
+                                    cursor: 'pointer',
+                                    outline: 'inherit',
+                                    textDecoration: 'underline',
+                                  }}
+                                  type="button"
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    setCurrentCocktail(cocktail);
+                                    setDisplayMode('RandomCocktail');
+                                  }}
                                 >
                                   {cocktail.strDrink}
-                                </a>
+                                </button>
                               </li>
                             ))}
                           </ul>
