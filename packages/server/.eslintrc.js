@@ -5,6 +5,7 @@ module.exports = {
   },
   extends: [
     'airbnb',
+    "plugin:prettier/recommended",
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
