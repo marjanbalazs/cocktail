@@ -91,53 +91,63 @@ function App() {
   };
 
   return (
-    <div>
-      <h2>Cocktail App</h2>
-      <form onSubmit={handleSearchSubmit}>
-        <input
-          type="search"
-          name="name"
-          onChange={(e) => setSearchName(e.target.value)}
-        />
-        <input type="submit" value="Submit" />
-      </form>
-      {displayMode === "SpecificCocktail" ? (
-        <div>
-          {currentCocktail && <CocktailView cocktail={currentCocktail} />}
-        </div>
-      ) : (
-        <div>
-          {cocktailSearchResults?.length ? (
-            <ul>
-              {cocktailSearchResults.map((cocktail) => (
-                <li>
-                  <button
-                    style={{
-                      background: "none",
-                      color: "blue",
-                      border: "none",
-                      padding: 0,
-                      font: "inherit",
-                      cursor: "pointer",
-                      outline: "inherit",
-                      textDecoration: "underline",
-                    }}
-                    type="button"
-                    onClick={(e) => handleCocktailListClick(e, cocktail)}
-                  >
-                    {cocktail.strDrink}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No results</p>
-          )}
-        </div>
-      )}
-      <button type="button" onClick={handleGetCocktail}>
-        Get Random cocktail
-      </button>
+    <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr 1fr" }}>
+      <div />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <h2>Cocktail App</h2>
+        <form onSubmit={handleSearchSubmit}>
+          <input
+            type="search"
+            name="name"
+            onChange={(e) => setSearchName(e.target.value)}
+          />
+          <input type="submit" value="Submit" />
+        </form>
+        {displayMode === "SpecificCocktail" ? (
+          <div>
+            {currentCocktail && <CocktailView cocktail={currentCocktail} />}
+          </div>
+        ) : (
+          <div>
+            {cocktailSearchResults?.length ? (
+              <ul style={{ paddingLeft: "0px" }}>
+                {cocktailSearchResults.map((cocktail) => (
+                  <li style={{ listStyle: "none" }}>
+                    <button
+                      style={{
+                        background: "none",
+                        color: "blue",
+                        border: "none",
+                        padding: 0,
+                        font: "inherit",
+                        cursor: "pointer",
+                        outline: "inherit",
+                        textDecoration: "underline",
+                      }}
+                      type="button"
+                      onClick={(e) => handleCocktailListClick(e, cocktail)}
+                    >
+                      {cocktail.strDrink}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>No results</p>
+            )}
+          </div>
+        )}
+        <button type="button" onClick={handleGetCocktail}>
+          Get Random cocktail
+        </button>
+      </div>
+      <div />
     </div>
   );
 }
